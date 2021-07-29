@@ -27,7 +27,7 @@ async function getPosts() {
 }
 getPosts()
 $postsList.addEventListener('click', renderPostData)
-// $postsList.addEventListener('click', renderPostComments)
+$postsList.addEventListener('click', renderPostComments)
 
 
 function createPostCard(post) {
@@ -85,7 +85,7 @@ async function getPostById(id) {
     }
 }
 
-function showPostComments(post) {
+function showPostComments(comment) {
     return `
     <div class="post-comments">
     <p>postId: ${comment.postId}</p>
@@ -100,15 +100,15 @@ async function renderPostComments(event) {
     try {
     console.log(event.target);
     
-    const comments = await getCommentByPostId(event.target.dataset.postId)
+    const comment = await getCommentsByPostId(event.target.dataset.postId)
     
-    $postComments.innerHTML = showPostComments(comments)
+    $postComments.innerHTML = showPostComments(comment)
     } catch(e) {
         console.log(e.message)
     }
 }
 
-async function getPostCommentsByPostId(postId) {
+async function getCommentsByPostId(postId) {
     try {
         const response = await fetch(baseURL+`/${postId}/comments`, {
             method: 'GET'

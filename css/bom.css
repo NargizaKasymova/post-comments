@@ -15,8 +15,8 @@
 
 .post-details {
     
-    width: calc(100%-10px);
-    margin-left:150px;
+    width: calc(100%-100px);
+    margin-left: 250px;
 }
 .post-comments {
     width: calc(100%-10px);
