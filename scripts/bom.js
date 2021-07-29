@@ -17,7 +17,6 @@ async function getPosts() {
         } else {
             console.log("Запрос поста прошел неудачно")
             console.log(response.status)
-            console.log(response.statusText)
         }
 
 
@@ -26,20 +25,21 @@ async function getPosts() {
     }
 }
 getPosts()
-$postsList.addEventListener('click', renderPostData)
+// $postsList.addEventListener('click', renderPostData)
 $postsList.addEventListener('click', renderPostComments)
 
 
 function createPostCard(post) {
     return `<span class="post" data-id="${post.id}">${post.title} </br></br>${post.body}</span>`
 }
-// data-userId="${post.userId}"
-async function renderPosts() {  //renderИть
+
+async function renderPosts() { 
     try {
         const posts = await getPosts()
         console.log("Полученные посты: ", posts)
         $postsList.innerHTML = posts.map(createPostCard).join("")
     } catch (e) {
+        console.log(e.stack)  //путь ошибки показывает
         console.log(e.message)
     }
 }
@@ -103,7 +103,7 @@ async function renderPostComments(event) {
     
     const comment = await getCommentsByPostId(event.target.dataset.id)
     
-    $postComments.innerHTML = showPostComments(comment)
+    $postComments.innerHTML = JSON.stringify(comment)
     } catch(e) {
         console.log(e.message)
     }
