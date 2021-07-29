@@ -90,7 +90,8 @@ function showPostComments(comment) {
     <div class="post-comments">
     <p>postId: ${comment.postId}</p>
     <p>commentid: ${comment.id}</p>
-    <p>title: ${comment.title}</p>
+    <p>name: ${comment.name}</p>
+    <p>email: ${comment.email}</p>
     <p>body: ${comment.body}</p>
 
     </div>`
@@ -100,7 +101,7 @@ async function renderPostComments(event) {
     try {
     console.log(event.target);
     
-    const comment = await getCommentsByPostId(event.target.dataset.postId)
+    const comment = await getCommentsByPostId(event.target.dataset.id)
     
     $postComments.innerHTML = showPostComments(comment)
     } catch(e) {
@@ -108,9 +109,9 @@ async function renderPostComments(event) {
     }
 }
 
-async function getCommentsByPostId(postId) {
+async function getCommentsByPostId(id) {
     try {
-        const response = await fetch(baseURL+`/${postId}/comments`, {
+        const response = await fetch(baseURL+`/${id}/comments`, {
             method: 'GET'
         })
 
@@ -123,10 +124,3 @@ async function getCommentsByPostId(postId) {
         console.log('Ошибка при поиске комментария по postID: ', e.message)
     }
 }
-// function getPostComments() {
-//     fetch('https://jsonplaceholder.typicode.com/posts/1/comments')
-//   .then((response) => response.json())
-//   .then((json) => console.log(json));
-// }
-
-// $postsList.addEventListener('click', getPostComments)
